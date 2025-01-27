@@ -1,14 +1,15 @@
 # see https://hub.docker.com/_/mysql for environment variables
 # note changes port to 3307
+  #DONT FORGET TO CHANGE THE PASSWORD BACK TO ITSTUDIES12345 AS WELL AS THE OTHER COMPOSE INFORMATION SO IT WORKS ON YOUR MACHINE
 services:
   mysql:
     container_name: 'mysql'
     image: 'mysql:latest'
     environment:
       - 'MYSQL_DATABASE=csd230'
-      - 'MYSQL_PASSWORD=itstudies12345'
-      - 'MYSQL_ROOT_PASSWORD=itstudies12345'
-      - 'MYSQL_USER=fcarella'
+      - 'MYSQL_PASSWORD=CSD216'
+      - 'MYSQL_ROOT_PASSWORD=CSD216'
+      - 'MYSQL_USER=root'
     ports:
       - '3307:3306'
     volumes: # stores data in local folder: c:\volumes

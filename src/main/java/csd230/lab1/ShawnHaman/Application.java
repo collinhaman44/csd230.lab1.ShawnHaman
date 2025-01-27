@@ -4,10 +4,7 @@ import com.github.javafaker.Faker;
 import csd230.lab1.ShawnHaman.entities.Book;
 import csd230.lab1.ShawnHaman.entities.Cart;
 import csd230.lab1.ShawnHaman.entities.Magazine;
-import csd230.lab1.ShawnHaman.repositories.BookRepository;
-import csd230.lab1.ShawnHaman.repositories.CartItemRepository;
-import csd230.lab1.ShawnHaman.repositories.CartRepository;
-import csd230.lab1.ShawnHaman.repositories.MagazineRepository;
+import csd230.lab1.ShawnHaman.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.List;
+
+// YOU HAVE TO RUN THIS APPLICATION TWICE OR CART ITEM DOES NOT WORK PROPERLY
+//DONT FORGET TO CHANGE THE PASSWORD BACK TO ITSTUDIES12345 AS WELL AS THE OTHER COMPOSE INFORMATION SO IT WORKS ON YOUR MACHINE
 
 @SpringBootApplication
 public class Application {
@@ -122,8 +122,8 @@ public class Application {
 			log.info("Books found within price range (10.0 - 50.0):");
 			log.info("--------------------------------------------");
 			List<Book> booksInPriceRange = repository.findBooksWithinPriceRange(10.0, 50.0);
-			booksInPriceRange.forEach(b -> log.info(b.getTitle())); //used getTitle so that it displays the titles of the books between the price range instead of just the book id
-			log.info("");
+			booksInPriceRange.forEach(b -> log.info(b.getTitle() + " - Price: " + b.getPrice())); //used getTitle so that it displays the titles of the books between the price range instead of just the book id
+			log.info("");                                                                               //this also displays the prices of the books that are between the price range
 
 			// Fetch books by title
 			log.info("Books found with findByTitle('"+book.getTitle()+"'):");
@@ -135,7 +135,8 @@ public class Application {
 			// Fetch all magazines
 			log.info("Magazines found with findAll():");
 			log.info("-------------------------------");
-			magazineRepository.findAll().forEach(magazine -> log.info(magazine.toString()));
+			magazineRepository.findAll().forEach(magazine ->
+					log.info(magazine.toString()));
 			log.info("");
 
 			//Fetch an individual magazine by ID
@@ -145,12 +146,19 @@ public class Application {
 			log.info(magazine.toString());
 			log.info("");
 
-			//fetch a magazine by date (currissue)
+			//fetch a magazine by date (currIssue)
 			log.info("magazines found with findByCurrIssue('"+magazine.getCurrIssue()+"'):");
 			log.info("-------------------------------");
 			magazineRepository.findByCurrIssue( magazine.getCurrIssue()).forEach(currIssue -> {
 				log.info(currIssue.toString());
 			} );
+
+			//fetch a magazine by title
+			log.info("Magazine found with findByTitle('"+magazine.getTitle()+"'):");
+			log.info("-------------------------------");
+			magazineRepository.findByTitle( magazine.getTitle()).forEach(title -> {
+				log.info(title.toString());
+			});
 
 			// Fetch and log all items in the cart
 			log.info("Cart items found with findAll():");
